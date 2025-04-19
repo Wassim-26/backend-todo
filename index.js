@@ -14,9 +14,13 @@ app.use("/user", userRouter);
 app.get("/", (req, res) => {
   res.send("Slm 3likom choway za3im rgaya");
 });
-app.listen(5000, "172.20.10.3", () => {
+app.listen(5000, () => {
   console.log("Server is running on PORT 5000");
 });
-mongoose.connect("").then(() => {
-  console.log("Connected to DB");
-});
+mongoose
+  .connect(
+    "mongodb+srv://messiwassim2006:pass1%40@cluster0.hxod3k0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(() => {
+    console.log("Connected to DB");
+  });

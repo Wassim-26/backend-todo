@@ -5,12 +5,13 @@ import {
   getTaskById,
   getTasks,
   updateTask,
-} from "../controllers/Task.js";
+} from "../controllers/task.js";
+import { auth } from "../middlewares/auth.js";
 
 export const TasksRouter = express.Router();
 
-TasksRouter.get("/", getTasks);
-TasksRouter.post("/", createTask);
-TasksRouter.get("/:id", getTaskById);
-TasksRouter.put("/:id", updateTask);
-TasksRouter.delete("/:id", deleteTask);
+TasksRouter.get("/", auth, getTasks);
+TasksRouter.post("/", auth, createTask);
+TasksRouter.get("/:id", auth, getTaskById);
+TasksRouter.put("/:id", auth, updateTask);
+TasksRouter.delete("/:id", auth, deleteTask);

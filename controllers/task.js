@@ -1,6 +1,10 @@
 import Task from "../models/task.js";
 export const getTasks = async (req, res) => {
-  const Tasks = await Task.find();
+  const user = req.userId;
+
+  const Tasks = await Task.find({
+    user: user,
+  });
 
   res.status(200).send({
     success: true,
@@ -10,7 +14,10 @@ export const getTasks = async (req, res) => {
 };
 export const getTaskById = async (req, res) => {
   const id = req.params.id;
-  const myTask = await Task.findById(id);
+  const myTask = await Task.findOne({
+    _id: id,
+    user: req.userId,
+  });
 
   if (myTask) {
     res.status(200).send({
@@ -26,8 +33,15 @@ export const getTaskById = async (req, res) => {
   }
 };
 export const createTask = async (req, res) => {
-  const TaskInfos = req.body;
-  const newTask = await Task.create(TaskInfos);
+  const title = req.body.title;
+  const description = req.body.description;
+  const user = req.userId;
+
+  const newTask = await Task.create({
+    title: title,
+    description: description,
+    user: user,
+  });
 
   res.status(200).send({
     success: true,
